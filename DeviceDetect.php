@@ -4,6 +4,7 @@ namespace israelfl\devicedetect;
 
 use Yii;
 use Detection\MobileDetect;
+use yii\base\Component;
 
 /**
  * DeviceDetect
@@ -12,7 +13,7 @@ use Detection\MobileDetect;
  * @version 0.0.1
  */
 
-class DeviceDetect extends \yii\base\Component {
+class DeviceDetect extends Component {
 
     private $_mobileDetect;
 
@@ -43,24 +44,33 @@ class DeviceDetect extends \yii\base\Component {
         if ( $this->setParams )
         {
 
-            \Yii::$app->params['devicedetect'] = [
+            Yii::$app->params['devicedetect'] = [
                 'isMobile' => false,
                 'isTablet' => false,
                 'isDesktop' => false,
+                'os' => ''
             ];
 
-            if ( $this->_mobileDetect->isTablet() ) \Yii::$app->params['devicedetect']['isTablet'] = true;
-            elseif ( $this->_mobileDetect->isMobile() ) \Yii::$app->params['devicedetect']['isMobile'] = true;
-            else \Yii::$app->params['devicedetect']['isDesktop'] = true;
+            if ( $this->_mobileDetect->isTablet() ) Yii::$app->params['devicedetect']['isTablet'] = true;
+            elseif ( $this->_mobileDetect->isMobile() ) Yii::$app->params['devicedetect']['isMobile'] = true;
+            else Yii::$app->params['devicedetect']['isDesktop'] = true;
+
+            if ( $this->_mobileDetect->isiOS() ) Yii::$app->params['devicedetect']['os'] = 'ios';
+            elseif ( $this->_mobileDetect->isAndroidOS() ) Yii::$app->params['devicedetect']['os'] = 'android';
+            elseif ( $this->_mobileDetect->isWindowsMobileOS() || $this->_mobileDetect->isWindowsPhoneOS() ) Yii::$app->params['devicedetect']['os'] = 'wphone';
+
+            Yii::$app->params['devicedetect']['isiOS'] = $this->_mobileDetect->isiOS();
+            Yii::$app->params['devicedetect']['isAndroid'] = $this->_mobileDetect->isAndroidOS();
+            Yii::$app->params['devicedetect']['isWindowsPhone'] = $this->_mobileDetect->isWindowsMobileOS() || $this->_mobileDetect->isWindowsPhoneOS();
 
         }
 
         if ( $this->setAlias )
         {
 
-            if ( $this->_mobileDetect->isTablet() ) \Yii::setAlias( '@device', 'tablet' );
-            elseif ( $this->_mobileDetect->isMobile() ) \Yii::setAlias( '@device', 'mobile' );
-            else \Yii::setAlias( '@device', 'desktop' );
+            if ( $this->_mobileDetect->isTablet() ) Yii::setAlias( '@device', 'tablet' );
+            elseif ( $this->_mobileDetect->isMobile() ) Yii::setAlias( '@device', 'mobile' );
+            else Yii::setAlias( '@device', 'desktop' );
 
         }
     }
