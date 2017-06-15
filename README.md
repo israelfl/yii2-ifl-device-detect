@@ -28,6 +28,10 @@ array (size=3)
   'isMobile' => boolean false
   'isTablet' => boolean false
   'isDesktop' => boolean true
+  'os' => 'android'
+  'isiOS' => boolean false
+  'isAndroid' => boolean true
+  'isWindowsPhone' => boolean false
 ~~~
 
 You can also use it from anywhere in your code, calling Mobile-Detect's API:
