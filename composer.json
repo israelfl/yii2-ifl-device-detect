@@ -3,7 +3,7 @@
 	"description": "Yii2 extension for Mobile-Detect library",
 	"type": "yii2-extension",
 	"keywords": ["yii2","extension","widget","device","detect","mobile","phone","tablet","desktop"],
-	"license": "MIT License",
+	"license": "MIT",
 	"authors": [
 		{
 			"name": "Israel Falcón",
